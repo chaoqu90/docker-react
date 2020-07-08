@@ -1,0 +1,28 @@
+version: '3'
+services:
+    react-app:
+        build: 
+            #specify working directory
+            context: .
+            #specify the docker file you wanna use
+            dockerfile: Dockerfile.dev
+        ports: 
+            - "3000:3000"
+        stdin_open: true    
+        volumes:
+            - /app/node_modules
+            - .:/app
+    tests:
+        build: 
+            #specify working directory
+            context: .
+            #specify the docker file you wanna use
+            dockerfile: Dockerfile.dev
+        stdin_open: true    
+        volumes:
+            - /app/node_modules
+            - .:/app        
+        #override the starting command in dockerfile to run tests    
+        command: ["npm", "run", "test"]    
+        
+        

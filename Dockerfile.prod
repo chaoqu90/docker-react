@@ -1,0 +1,15 @@
+#Builder phase: install all the dependencies required and build the application
+FROM node:alpine as builder
+WORKDIR '/app'
+COPY package.json .
+RUN npm install
+#can directly copy all source code to the container without using volume
+#because we're not going to change them anymore.
+COPY . .
+RUN npm run build
+
+#Run phase: create nginx instance and copy build package into it.
+FROM nginx as runner
+#copy the build package generated from builder phase to the nginx directory
+COPY --from=builder /app/build /usr/share/nginx/html
+

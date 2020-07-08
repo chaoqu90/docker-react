@@ -1,0 +1,21 @@
+# Purpose of this docker file is to create a development server of "frontend" app in the container.
+ 
+ FROM node:alpine
+ 
+ WORKDIR '/app'
+ 
+ #copy dependency file to work directory
+ COPY package.json .
+ RUN ls -ltr
+ 
+ #install all dependencies
+ RUN npm install
+ 
+ #copy rest of source file to work directory
+ COPY . .
+ RUN ls -ltr
+ 
+ #run the startup command to start develope server
+ CMD ["npm", "run", "start"]
+ 
+ 

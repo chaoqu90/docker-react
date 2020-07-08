@@ -1,0 +1,10 @@
+version: '3'
+services:
+    react-app-prod:
+        build: 
+            #specify working directory
+            context: .
+            #specify the docker file you wanna use
+            dockerfile: Dockerfile.prod
+        ports: 
+            - "8080:80"
